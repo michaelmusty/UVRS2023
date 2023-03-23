@@ -1,2 +1,15 @@
 # UVRS2023
- Scorecard for 2023 Upper Valley Running Series 
+
+A dashboard for [UVRS2023](https://uppervalleyrunningclub.org/2023-upper-valley-running-series)
+scoring.
+
+## Previous years
+* [https://github.com/michaelmusty/UVRS2022](https://github.com/michaelmusty/UVRS2022)
+
+## Environment
+```
+pip install isort loguru black mypy numpy pandas bs4 requests selenium lxml webdriver-manager dash plotly PyPDF2 fuzzywuzzy
+```
+```
+pip freeze > requirements.txt
+```
