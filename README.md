@@ -10,7 +10,7 @@ scoring.
 ## Environment
 
 ```{shell}
-pip install isort loguru black mypy numpy pandas bs4 requests selenium lxml webdriver-manager dash plotly PyPDF2 fuzzywuzzy
+pip install isort loguru black mypy numpy pandas bs4 requests selenium lxml webdriver-manager dash plotly PyPDF2 fuzzywuzzy gunicorn
 ```
 
 ```{shell}
