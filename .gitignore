@@ -1,3 +1,7 @@
+# misc
+input_data/rosters_private/
+env/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
