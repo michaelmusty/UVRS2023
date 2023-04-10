@@ -3,6 +3,7 @@
 import itertools
 from typing import Dict, List, Optional, Tuple
 
+from fuzzywuzzy import fuzz  # type: ignore
 from loguru import logger
 
 from utils.participant import Participant
@@ -83,7 +84,7 @@ def is_participant_in_race(
 
     matched_racers: List[Racer] = []
     for racer in racers:
-        if does_person_match_racer(person=person, racer=racer):
+        if does_person_match_racer(person=person, racer=racer, match_algorithm="fuzzy"):
             matched_racers.append(racer)
 
     if len(matched_racers) == 0:
@@ -100,10 +101,18 @@ def is_participant_in_race(
         )
 
 
-# TODO: add other match algorithms
-def does_person_match_racer(
-    person: Person, racer: Racer, match_algorithm: str = "exact"
-) -> bool:
+# TODO: make match_algorithm an enum
+def does_person_match_racer(person: Person, racer: Racer, match_algorithm: str) -> bool:
     """true if person matches racer based on names only"""
-    assert match_algorithm == "exact"
-    return person.name().casefold() == racer.get_name().casefold()
+    if match_algorithm == "exact":
+        return person.name().casefold() == racer.get_name().casefold()
+    elif match_algorithm == "fuzzy":
+        threshold = 90  # TODO: make this a global variable
+        match_score = fuzz.ratio(person.name().lower(), racer.get_name().lower())
+        if match_score > threshold and match_score < 100:
+            logger.info(
+                f"{match_score=}, {threshold=}, {person.name().lower()=}, {racer.get_name().lower()=}"
+            )
+        return match_score >= threshold
+    else:
+        raise Exception(f"match_algorithm = {match_algorithm} not supported")
