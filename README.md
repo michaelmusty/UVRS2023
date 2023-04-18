@@ -10,9 +10,15 @@ scoring.
 ## Environment
 
 ```{shell}
-pip install isort loguru black mypy numpy pandas bs4 requests selenium lxml webdriver-manager dash plotly PyPDF2 fuzzywuzzy gunicorn
+pip install isort loguru black mypy numpy pandas bs4 requests selenium lxml webdriver-manager dash plotly PyPDF2 fuzzywuzzy gunicorn spacy
 ```
 
 ```{shell}
 pip freeze > requirements.txt
+```
+
+We also need to download the language model
+
+```{shell}
+python -m spacy download en_core_web_sm
 ```
