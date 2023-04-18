@@ -3,6 +3,7 @@
 import itertools
 from typing import Dict, List, Optional, Tuple
 
+import spacy
 from fuzzywuzzy import fuzz  # type: ignore
 from loguru import logger
 
@@ -84,7 +85,7 @@ def is_participant_in_race(
 
     matched_racers: List[Racer] = []
     for racer in racers:
-        if does_person_match_racer(person=person, racer=racer, match_algorithm="fuzzy"):
+        if does_person_match_racer(person=person, racer=racer, match_algorithm="spacy"):
             matched_racers.append(racer)
 
     if len(matched_racers) == 0:
@@ -102,17 +103,23 @@ def is_participant_in_race(
 
 
 # TODO: make match_algorithm an enum
+# TODO: make all thresholds global constants
 def does_person_match_racer(person: Person, racer: Racer, match_algorithm: str) -> bool:
     """true if person matches racer based on names only"""
     if match_algorithm == "exact":
         return person.name().casefold() == racer.get_name().casefold()
     elif match_algorithm == "fuzzy":
-        threshold = 90  # TODO: make this a global variable
+        threshold = 75
         match_score = fuzz.ratio(person.name().lower(), racer.get_name().lower())
         if match_score > threshold and match_score < 100:
             logger.info(
                 f"{match_score=}, {threshold=}, {person.name().lower()=}, {racer.get_name().lower()=}"
             )
-        return match_score >= threshold
+        return match_score > threshold
+    elif match_algorithm == "spacy":
+        nlp = spacy.load("en_core_web_sm")
+        similarity_score = nlp(person.name()).similarity(nlp(racer.get_name()))
+        logger.info(f"{similarity_score=}, {person.name()=}, {racer.get_name()=}")
+        return similarity_score > 0.9
     else:
         raise Exception(f"match_algorithm = {match_algorithm} not supported")
