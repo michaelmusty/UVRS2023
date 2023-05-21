@@ -85,7 +85,7 @@ def is_participant_in_race(
 
     matched_racers: List[Racer] = []
     for racer in racers:
-        if does_person_match_racer(person=person, racer=racer, match_algorithm="exact"):
+        if does_person_match_racer(person=person, racer=racer, match_algorithm="fuzzy"):
             matched_racers.append(racer)
 
     if len(matched_racers) == 0:
@@ -109,13 +109,37 @@ def does_person_match_racer(person: Person, racer: Racer, match_algorithm: str) 
     if match_algorithm == "exact":
         return person.name().casefold() == racer.get_name().casefold()
     elif match_algorithm == "fuzzy":
-        threshold = 75
-        match_score = fuzz.ratio(person.name().lower(), racer.get_name().lower())
-        if match_score > threshold and match_score < 100:
-            logger.info(
-                f"{match_score=}, {threshold=}, {person.name().lower()=}, {racer.get_name().lower()=}"  # noqa
-            )
-        return match_score > threshold
+        first_name_threshold = 75
+        last_name_threshold = 95
+        try:
+            last_name_score = fuzz.ratio(
+                person.last.lower(), racer.lastname.lower()
+            )  # noqa
+            first_name_score = fuzz.ratio(
+                person.first.lower(), racer.firstname.lower()
+            )  # noqa
+            condition = (
+                first_name_score > first_name_threshold
+                and last_name_score > last_name_threshold
+            )  # noqa
+            if person.first.lower() in [
+                "kim",
+                "kimberly",
+            ] and racer.firstname.lower() in [
+                "kim",
+                "kimberly",
+            ]:  # noqa
+                logger.error(
+                    f"{first_name_score=} {last_name_score=} {person.name()=} {racer.get_name()=}"  # noqa
+                )
+            if condition and (first_name_score < 100 or last_name_score < 100):
+                logger.debug(
+                    f"{first_name_score=} {last_name_score=} {person.name()=} {racer.get_name()=}"  # noqa
+                )
+            return condition
+        except Exception as e:
+            logger.error(f"{person.name()=} {racer.get_name()=} {e=}")
+            return False
     elif match_algorithm == "spacy":
         nlp = spacy.load("en_core_web_sm")
         similarity_score = nlp(person.name()).similarity(nlp(racer.get_name()))
