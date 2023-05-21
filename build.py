@@ -1,7 +1,5 @@
 """script to build dataframe to be consumed by frontend"""
 
-import glob
-import os
 from typing import List
 
 import pandas as pd  # type: ignore
@@ -28,7 +26,7 @@ def build_email_text(df: pd.DataFrame) -> str:
     df_overall.columns = df_overall.columns.get_level_values(0)
     df_overall.reset_index(inplace=True)
     age_groups = sorted(df_overall["Age Group"].unique())
-    l: List[str] = []
+    l: List[str] = []  # noqa
     for age_group in age_groups:
         dff = df_overall[df_overall["Age Group"] == age_group].head(3)[
             ["Individual", "Score"]

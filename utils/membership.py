@@ -4,8 +4,6 @@ import csv
 import glob
 import os
 from itertools import combinations
-from math import comb
-from typing import Dict, List
 
 import pandas as pd  # type: ignore
 from loguru import logger
@@ -46,7 +44,7 @@ def _format_date(x: str) -> str:
     return f"{m}/{d}/{y}"
 
 
-def _verify_raw_row(row: List[str]) -> bool:
+def _verify_raw_row(row: list[str]) -> bool:
     if len(row) != 9:
         return False
     if row[0] == "First Name" or row[1] == "Last Name":
@@ -60,8 +58,8 @@ def _verify_raw_row(row: List[str]) -> bool:
 
 
 def get_latest_membership() -> pd.DataFrame:
-    """returns membership list as pandas dataframe with a subset of (nonprivate) columns"""
-    d: Dict[str, List[str]] = {
+    """returns membership list as pandas dataframe with a subset of (nonprivate) columns"""  # noqa
+    d: dict[str, list[str]] = {
         "First": [],
         "Last": [],
         "DOB": [],
@@ -77,7 +75,7 @@ def get_latest_membership() -> pd.DataFrame:
                 row
             ):  # FIXME: this all depends on the schema of the leb rec membership csv
                 logger.info(
-                    f"Adding row to membership data: {row}\n{row[0]} : {row[1]} : {row[2]} : {row[3]} : {row[8]}"
+                    f"Adding row to membership data: {row}\n{row[0]} : {row[1]} : {row[2]} : {row[3]} : {row[8]}"  # noqa
                 )
                 d["First"].append(row[0])
                 d["Last"].append(row[1])
@@ -95,10 +93,10 @@ def get_latest_membership() -> pd.DataFrame:
     # return df.dropna(how="all")
 
 
-def create_people_from_membership_list() -> List[Person]:
+def create_people_from_membership_list() -> list[Person]:
     """builds a list of people (Person objects) from most recent membership list"""
     df = get_latest_membership()  # most recent membership data
-    people: List[Person] = []  # a list of people
+    people: list[Person] = []  # a list of people
     for i, row in df.iterrows():
         logger.info(f"building data for row {i} out of {df.shape[0]} rows:\n{row}")
         row = row.to_dict()

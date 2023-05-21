@@ -26,13 +26,13 @@ def get_participants(
             assert p
             if for_scoring:
                 logger.info(
-                    f"{person.name()} is a participant (only including races for scoring)\n{person.name()} races: {[x.get_full_name() for x in p.races]}\n{person.name()} racer: {[x.get_name() for x in p.racers]}"
+                    f"{person.name()} is a participant (only including races for scoring)\n{person.name()} races: {[x.get_full_name() for x in p.races]}\n{person.name()} racer: {[x.get_name() for x in p.racers]}"  # noqa
                 )
             else:
                 logger.info(
-                    f"{person.name()} is a participant (including all races and distances)\n{person.name()} races: {[x.get_full_name() for x in p.races]}\n{person.name()} racer: {[x.get_name() for x in p.racers]}"
+                    f"{person.name()} is a participant (including all races and distances)\n{person.name()} races: {[x.get_full_name() for x in p.races]}\n{person.name()} racer: {[x.get_name() for x in p.racers]}"  # noqa
                 )
-            # logger.info(f"{person.name()} races: {[x.get_full_name() for x in p.races]}")
+            # logger.info(f"{person.name()} races: {[x.get_full_name() for x in p.races]}")  # noqa
             # logger.info(f"{person.name()} racer: {[x.get_name() for x in p.racers]}")
             participants.append(p)
         else:
@@ -43,7 +43,7 @@ def get_participants(
 def is_participant(
     person: Person, races: List[Race], for_scoring: bool
 ) -> Tuple[bool, Optional[Participant]]:
-    """determine if person is a participant in any of races and if so construct participant"""
+    """determine if person is a participant in any of races and if so construct participant"""  # noqa
 
     races_participated_in: List[Race] = []
     corresponding_racers: List[Racer] = []
@@ -69,7 +69,7 @@ def is_participant(
 def is_participant_in_race(
     person: Person, race: Race, for_scoring: bool
 ) -> Tuple[bool, Optional[Racer]]:
-    """true if person is particpant in race and the corresponding racer is also returned"""
+    """true if person is particpant in race and the corresponding racer is also returned"""  # noqa
     racers: List[Racer]
     if for_scoring:
         racers = race.get_racers()[
@@ -113,7 +113,7 @@ def does_person_match_racer(person: Person, racer: Racer, match_algorithm: str) 
         match_score = fuzz.ratio(person.name().lower(), racer.get_name().lower())
         if match_score > threshold and match_score < 100:
             logger.info(
-                f"{match_score=}, {threshold=}, {person.name().lower()=}, {racer.get_name().lower()=}"
+                f"{match_score=}, {threshold=}, {person.name().lower()=}, {racer.get_name().lower()=}"  # noqa
             )
         return match_score > threshold
     elif match_algorithm == "spacy":

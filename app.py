@@ -7,7 +7,6 @@ import os
 import dash  # type: ignore
 import pandas as pd  # type: ignore
 import plotly.express as px  # type: ignore
-import plotly.io as pio  # type: ignore
 from dash import dcc, html  # type: ignore
 from dash.dependencies import Input, Output  # type: ignore
 from loguru import logger
@@ -81,7 +80,7 @@ app.layout = html.Div(
             ),
             style={"width": "20%"},
         ),
-        html.H2(f"Overall scores"),
+        html.H2("Overall scores"),
         html.Button("Download overall scores CSV", id="btn_overall_scores_csv"),
         dcc.Download(id="download_overall_scores_csv"),
         dcc.Graph(id="overall_scores"),
@@ -107,25 +106,27 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
+@app.callback(  # type: ignore
     Output("download_overall_scores_csv", "data"),
     Input("btn_overall_scores_csv", "n_clicks"),
     prevent_initial_call=True,
 )
-def func(n_clicks):
+def func(n_clicks):  # noqa
     return dcc.send_data_frame(df_overall.to_csv, "uvrs2023_overall_scores.csv")
 
 
-@app.callback(
+@app.callback(  # type: ignore
     Output("download_scores_for_all_races_csv", "data"),
     Input("btn_scores_for_all_races_csv", "n_clicks"),
     prevent_initial_call=True,
 )
-def func(n_clicks):
+def func(n_clicks):  # noqa
     return dcc.send_data_frame(df.to_csv, "uvrs2023_scores_for_all_races.csv")
 
 
-@app.callback(Output("overall_scores", "figure"), Input("age-group", "value"))
+@app.callback(  # type: ignore
+    Output("overall_scores", "figure"), Input("age-group", "value")
+)
 def update_graph(age_group):
     dff = df_overall[df_overall["Age Group"] == age_group]
     fig = px.bar(
@@ -139,8 +140,10 @@ def update_graph(age_group):
     return fig
 
 
-@app.callback(Output("all_scores", "figure"), Input("age-group", "value"))
-def update_graph(age_group):
+@app.callback(  # type: ignore
+    Output("all_scores", "figure"), Input("age-group", "value")
+)
+def update_graph(age_group):  # noqa
     dff = df[df["Age Group"] == age_group]
     fig = px.bar(
         dff,
