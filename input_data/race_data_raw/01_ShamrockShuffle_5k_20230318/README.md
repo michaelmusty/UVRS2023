@@ -14,3 +14,7 @@ you can populate `race_data` via `race_data_raw_to_race_data.py`
 ```{python}
 python input_data/race_data_raw/01_ShamrockShuffle_5k_20230318/race_data_raw_to_race_data.py
 ```
+
+## tweaks to `5k.csv`
+
+removed `Unknown runner` record from `5k.csv`
