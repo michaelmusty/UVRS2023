@@ -1,12 +1,13 @@
 """
 From the home directory of the repository run
 ```
-python input_data/race_data_raw/01_ShamrockShuffle_5k_20230318/race_data_raw_to_race_data.py
+python
+input_data/race_data_raw/01_ShamrockShuffle_5k_20230318/01_race_data_raw_to_race_data.py
 ```
 """
 
 import csv
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import pandas as pd  # type: ignore
 from loguru import logger

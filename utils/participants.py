@@ -85,7 +85,7 @@ def is_participant_in_race(
 
     matched_racers: List[Racer] = []
     for racer in racers:
-        if does_person_match_racer(person=person, racer=racer, match_algorithm="fuzzy"):
+        if does_person_match_racer(person=person, racer=racer, match_algorithm="exact"):
             matched_racers.append(racer)
 
     if len(matched_racers) == 0:
