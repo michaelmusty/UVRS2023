@@ -69,7 +69,7 @@ you can populate `race_data` via `02_race_data_raw_to_race_data.py`
 python input_data/race_data_raw/02_BarnArtRaceAroundTheLake_10k_20230521/02_race_data_raw_to_race_data.py
 ```
 
-## edits
+## tweaks to `10k.csv`
 
 Note that all edits are made to `input_data/race_data/*.csv` instead of editing the `*_raw.csv` files.
 

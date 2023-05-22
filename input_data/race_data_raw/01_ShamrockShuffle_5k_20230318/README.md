@@ -17,4 +17,6 @@ python input_data/race_data_raw/01_ShamrockShuffle_5k_20230318/01_race_data_raw_
 
 ## tweaks to `5k.csv`
 
-removed `Unknown runner` record from `5k.csv`
+* removed `Unknown runner` record from `5k.csv`
+
+* renamed `Kim Allen` to `Kimberly Allen` so that the race results match the record in the UVRC roster
