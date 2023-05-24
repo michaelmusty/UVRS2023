@@ -24,3 +24,5 @@ python input_data/race_data_raw/01_ShamrockShuffle_5k_20230318/01_race_data_raw_
 * renamed `Elizabeth Gonnerman` to `Betsy Gonnerman`
 
 * renamed `Daniel Collison` to `Dan Collison`
+
+* renamed `Yusaku Hariuchi` to `Yusaku Horiuchi`
