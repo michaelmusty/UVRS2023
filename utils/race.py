@@ -59,7 +59,7 @@ class Race:
             filename = data_path.split("/")[-1]
             a, b = filename.split(".")
             assert b == "csv"
-            assert a in ["5k", "10k", "12k", "7m"]
+            assert a in ["5k", "10k", "12k", "4m", "7m"]
             distances.append(a)
         return distances
 
