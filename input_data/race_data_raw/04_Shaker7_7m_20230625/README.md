@@ -16,3 +16,5 @@ python input_data/race_data_raw/04_Shaker7_7m_20230625/04_race_data_raw_to_race_
 ## tweaks to `4m.csv`
 
 Note that all edits are made to `input_data/race_data/*.csv` instead of editing the `*_raw.csv` files.
+
+[https://github.com/michaelmusty/UVRS2023/issues/6](https://github.com/michaelmusty/UVRS2023/issues/6)

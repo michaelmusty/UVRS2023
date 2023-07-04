@@ -17,4 +17,4 @@ python input_data/race_data_raw/03_SkipsRun_4m_20230618/03_race_data_raw_to_race
 
 Note that all edits are made to `input_data/race_data/*.csv` instead of editing the `*_raw.csv` files.
 
-* TODO: There are two "John Murphy"s in the results, so had to determine which one is "John Murphy IV" and edit the last name in the race results to match "John Murphy IV" in the UVRS roster.
+[https://github.com/michaelmusty/UVRS2023/issues/6](https://github.com/michaelmusty/UVRS2023/issues/6)
