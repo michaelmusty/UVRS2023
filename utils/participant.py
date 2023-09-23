@@ -1,9 +1,7 @@
 """Participant Class"""
 
-from datetime import date, datetime, timedelta
-from typing import Dict, List
-
-from loguru import logger
+from datetime import date
+from typing import List
 
 from utils.person import Person
 from utils.race import Race
@@ -25,14 +23,14 @@ class Participant:
             self.races = races
         else:
             raise Exception(
-                f"a participant cannot be created unless number of races participated in is > 0"
+                "a participant cannot be created unless number of races participated in is > 0"
             )
         if len(racers) > 0:
             assert len(racers) == len(races)
             self.racers = racers
         else:
             raise Exception(
-                f"a participant cannot be created unless number of of corresponding racers is > 0"
+                "a participant cannot be created unless number of of corresponding racers is > 0"
             )
 
     def age_group(self) -> str:
@@ -40,6 +38,7 @@ class Participant:
         assert len(self.races) > 0
         race_dates = [race.get_datetime() for race in self.races]
         return compute_age_group(
+            person=self.person,
             date_of_birth=self.person.date_of_birth(),
             race_date=min(race_dates),
             gender=standardize_gender(self.person.gender),
@@ -61,7 +60,9 @@ def standardize_gender(gender: str) -> str:
         raise Exception(f"gender {gender} not recognized")
 
 
-def compute_age_group(date_of_birth: date, race_date: date, gender: str) -> str:
+def compute_age_group(
+    person: Person, date_of_birth: date, race_date: date, gender: str
+) -> str:
     """compute age group of individual with given date_of_birth at the time of race_date"""
     assert gender in ["F", "M"]
     age = (
@@ -86,5 +87,9 @@ def compute_age_group(date_of_birth: date, race_date: date, gender: str) -> str:
         return f"{gender}70+"
     else:
         raise Exception(
-            f"is there really someone older than 120 year in the race results?"
+            f"""
+            is there really someone older than 120 year in the race results?
+            \n
+            {race_date=} : {date_of_birth=} : {age=} : {gender=} : {person.name()=}
+            """
         )
