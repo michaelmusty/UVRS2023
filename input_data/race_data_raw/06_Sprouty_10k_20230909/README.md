@@ -10,11 +10,11 @@ Prompt to get `sprouty_results.csv`: [https://chat.openai.com/share/cea13f40-34f
 
 Then modify that to get `10k_raw.csv` and `5k_raw.csv`.
 
-Once you have `10k_raw.csv` and `5k_raw.csv` in `input_data/race_data_raw/05_HurricaneHill_10k_20230826/` directory
-you can populate `race_data` via `05_race_data_raw_to_race_data.py`
+Once you have `10k_raw.csv` and `5k_raw.csv` in `input_data/race_data_raw/06_Sprouty_10k_20230909/` directory
+you can populate `race_data` via `06_race_data_raw_to_race_data.py`
 
 ```{shell}
-python input_data/race_data_raw/05_HurricaneHill_10k_20230826/05_race_data_raw_to_race_data.py
+python input_data/race_data_raw/06_Sprouty_10k_20230909/06_race_data_raw_to_race_data.py
 ```
 
 ## tweaks to `10k.csv` and `5k.csv`
